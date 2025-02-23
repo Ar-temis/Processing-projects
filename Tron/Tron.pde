@@ -19,6 +19,7 @@ boolean roundStarted = false;
 
 float healthMenuY;
 float healthMenuX;
+
 void setup(){
   size(1080, 1080);
   background(0);
@@ -48,6 +49,7 @@ void keyPressed(){
 }
 
 void draw(){
+  // Count Down
   background(0);
   if (!roundStarted){
     int elapsedTime = (millis() - startTime) / 1000;  // Convert to seconds
@@ -62,6 +64,7 @@ void draw(){
       return; 
     } else { roundStarted = true; }
   }
+  // Game Over Menu
   if (p1.health == 0 || p2.health == 0){
     textSize(40);
     if (p1.health == 0){
@@ -83,6 +86,7 @@ void draw(){
       startTime = millis();
       }
     }
+  // Main Game Play
   } else {
     stroke(255);
     noFill();

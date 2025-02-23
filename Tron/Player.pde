@@ -1,4 +1,3 @@
-
 class Player {
   float x;
   float y;
