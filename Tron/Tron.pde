@@ -43,8 +43,8 @@ void keyPressed(){
   if (key ==  'a' || key == 'w' || key == 'd'){
     p1.motion = key;
   }
-  if (key ==  'h' || key == 'k' || key == 'l'){
-    p2.motion = key;
+  if (key == CODED){
+    p2.arrowKeys = keyCode;
   }
 }
 

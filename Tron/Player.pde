@@ -8,6 +8,7 @@ class Player {
   float angle = PI+HALF_PI;  // Angle in radians
   float turnSpeed = 0.05;  // Adjusted turn speed for better control
   char motion;
+  int arrowKeys;
   boolean playerOne;
   color c;
   PImage img;
@@ -77,11 +78,11 @@ class Player {
           break;
      }
     } else {
-      switch(motion){
-        case 'h':
+      switch(arrowKeys){
+        case LEFT:
           angle -= turnSpeed;  // Turn left (counterclockwise)
           break;
-        case 'l':
+        case RIGHT:
           angle += turnSpeed;  // Turn left (counterclockwise)
           break;
       }
