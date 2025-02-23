@@ -14,7 +14,7 @@ class Player {
   PImage img;
   //the trail attributes
   ArrayList<Segment> body;
-  int len = 10;
+  int len = 15;
   float r = 18; //distance between each trail segment
 
   public Player(float x, float y, boolean playerOne) {
@@ -30,15 +30,15 @@ class Player {
     }
     body = new ArrayList<Segment>();
     for(int i=0; i<len; i++){
-      body.add(new Segment(x - r*i, y, angle, r, r,c));
+      body.add(new Segment(x, y + r*i, angle, r, r,c));
     }
   }
 
-  public Player(float x, float y, int health, float speed) {
+  public Player(float x, float y, boolean playerOne, int health) {
     this.x = x;
     this.y = y;
     this.health = health;
-    this.speed = speed;
+    this.playerOne = playerOne;
     if (playerOne){
       c = color(209,224,0,255);
     }else{
@@ -46,7 +46,7 @@ class Player {
     }
     body = new ArrayList<Segment>();
     for(int i=0; i<len; i++){
-      body.add(new Segment(x - r*i, y, angle, r, r,c));
+      body.add(new Segment(x, y + r*i, angle, r, r,c));
     }
   }
 
@@ -57,7 +57,6 @@ class Player {
     fill(52, 119, 235);
     imageMode(CENTER);
    
-    // TODO change it to a bike
     rotate(HALF_PI);
     image(img, 0, 0, front, side);
     popMatrix();
@@ -125,7 +124,9 @@ class Player {
 
       if (d < r/2) {
         health--;
-        resetRound();
+        if (health > 0){
+          resetRound();
+        }
       }
     }
   }
@@ -137,7 +138,9 @@ class Player {
 
       if (d < r/2) {
         health--;
-        resetRound();
+        if (health > 0){
+          resetRound();
+        }
       }
     }
   }
@@ -160,6 +163,22 @@ class Player {
   void drawTrail(){
     for (int i=0; i<len; i++){
       body.get(i).display();
+    }
+  }
+
+  void playerReset(){
+    if (playerOne){
+      x = arenaX + 60;
+      y = height/2;
+    }else{
+      x = arenaX + arenaW - 60;
+      y = height/2;
+    }
+    motion = 'w';
+    angle = HALF_PI + PI;
+    body = new ArrayList<Segment>();
+    for(int i=0; i<len; i++){
+      body.add(new Segment(x, y + r*i, angle, r, r,c));
     }
   }
 }
