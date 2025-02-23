@@ -12,7 +12,7 @@ int allyCount;
 Player p1;
 Player p2;
 
-int countdownTime = 5;
+int countdownTime = 3;
 int startTime;
 boolean roundStarted = false;
 
@@ -23,9 +23,18 @@ void setup(){
   arenaY = height/8;
   arenaW = width/8*6;
   arenaH = height/8*6;
-  p1 = new Player(arenaX + arenaW/3, height/2);
-  p2 = new Player(arenaX + arenaW/3*2, height/3);
+  p1 = new Player(arenaX + arenaW/3, height/2, true);
+  p2 = new Player(arenaX + arenaW/3*2, height/3, false);
   startTime = millis();
+}
+
+void keyPressed(){
+  if (key ==  'a' || key == 'w' || key == 'd'){
+    p1.motion = key;
+  }
+  if (key ==  'h' || key == 'k' || key == 'l'){
+    p2.motion = key;
+  }
 }
 
 void draw(){
@@ -43,6 +52,7 @@ void draw(){
       return; 
     } else { roundStarted = true; }
   }
+  // TODO What to do after game over
   if (p1.health == 0 || p2.health == 0){
     
   } else {
@@ -53,6 +63,7 @@ void draw(){
     p1.draw();
     p2.draw();
     p1.checkTouchOther(p2);
+    p2.checkTouchOther(p1);
   }
 }
 
@@ -60,7 +71,7 @@ void draw(){
 void resetRound(){
   roundStarted = false;
   startTime = millis();
-  p1 = new Player(arenaX + arenaW/3, height/2);
-  p2 = new Player(arenaX + arenaW/3*2, height/3);
+  p1 = new Player(arenaX + arenaW/3, height/2, true);
+  p2 = new Player(arenaX + arenaW/3*2, height/3, false);
 }
 

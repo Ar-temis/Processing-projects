@@ -3,25 +3,34 @@ class Player {
   float x;
   float y;
   float front = 30;
-  float side = 50;
+  float side = 56;
   int health = 5;
   float speed = 5;
-  float angle = 0.0;  // Angle in radians
+  float angle = PI+HALF_PI;  // Angle in radians
   float turnSpeed = 0.05;  // Adjusted turn speed for better control
   char motion;
-  
+  boolean playerOne;
+  color c;
+  PImage img;
   //the trail attributes
   ArrayList<Segment> body;
   int len = 10;
   float r = 18; //distance between each trail segment
 
-  public Player(float x, float y) {
+  public Player(float x, float y, boolean playerOne) {
     this.x = x;
     this.y = y;
-
+    this.playerOne = playerOne;
+    if (playerOne){
+      img = loadImage("p1Bike.png");
+      c = color(209,224,0,255);
+    }else{
+      img = loadImage("p2Bike.png");
+      c = color(224,0,66,225);
+    }
     body = new ArrayList<Segment>();
     for(int i=0; i<len; i++){
-      body.add(new Segment(x - r*i, y, angle, r, r));
+      body.add(new Segment(x - r*i, y, angle, r, r,c));
     }
   }
 
@@ -30,22 +39,27 @@ class Player {
     this.y = y;
     this.health = health;
     this.speed = speed;
-
+    if (playerOne){
+      c = color(209,224,0,255);
+    }else{
+      c = color(224,0,66,225);
+    }
     body = new ArrayList<Segment>();
     for(int i=0; i<len; i++){
-      body.add(new Segment(x - r*i, y, angle, r, r));
+      body.add(new Segment(x - r*i, y, angle, r, r,c));
     }
   }
-  
+
   void draw() {
     pushMatrix();
     translate(x, y);
     rotate(angle);  
     fill(52, 119, 235);
-    rectMode(CENTER);
-    
+    imageMode(CENTER);
+   
     // TODO change it to a bike
-    rect(0, 0, side, front);
+    rotate(HALF_PI);
+    image(img, 0, 0, front, side);
     popMatrix();
     x += speed * cos(angle);
     y += speed * sin(angle);
@@ -55,16 +69,24 @@ class Player {
     drawTrail();
     checkTouchOwn();
     // Handle input
-    if (keyPressed) {
-      motion = key;
-    }
-    switch(motion){
-      case 'a':
-        angle -= turnSpeed;  // Turn left (counterclockwise)
-        break;
-      case 'd':
-        angle += turnSpeed;  // Turn left (counterclockwise)
-        break;
+    if (playerOne){
+      switch(motion){
+        case 'a':
+          angle -= turnSpeed;  // Turn left (counterclockwise)
+          break;
+        case 'd':
+          angle += turnSpeed;  // Turn left (counterclockwise)
+          break;
+     }
+    } else {
+      switch(motion){
+        case 'h':
+          angle -= turnSpeed;  // Turn left (counterclockwise)
+          break;
+        case 'l':
+          angle += turnSpeed;  // Turn left (counterclockwise)
+          break;
+      }
     }
   }
 
@@ -127,7 +149,7 @@ class Player {
     head.angle = a;
     head.x += speed * cos(head.angle);
     head.y += speed * sin(head.angle);
-    head.opacity = 0;
+    head.c = color(0,0,0,0);
     for (int i=1; i<len; i++){
       Segment c = body.get(i);
       Segment p = body.get(i-1);

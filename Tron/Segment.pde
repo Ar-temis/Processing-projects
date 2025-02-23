@@ -3,14 +3,15 @@ class Segment {
   float angle;
   float distance;
   float radius;
-  float opacity = 255;
+  color c;
   
-  Segment(float x, float y, float a, float d, float r){
+  Segment(float x, float y, float a, float d, float r, color c){
     this.x = x;
     this.y = y;
     angle = a;
     distance = d;
     radius = r;
+    this.c = c;
   }
 
   void update(Segment prev){
@@ -28,7 +29,7 @@ class Segment {
     pushMatrix();
       translate(x,y);
       rotate(angle);
-      stroke(255, 255, 255, opacity);
+      stroke(c);
       line(0,0,distance,0);
     popMatrix();
   }
