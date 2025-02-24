@@ -175,6 +175,7 @@ class Player {
       y = height/2;
     }
     motion = 'w';
+    arrowKeys = UP;
     angle = HALF_PI + PI;
     body = new ArrayList<Segment>();
     for(int i=0; i<len; i++){
