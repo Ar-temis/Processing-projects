@@ -4,9 +4,9 @@ class Player {
   float front = 30;
   float side = 56;
   int health = 5;
-  float speed = 5;
+  float speed = 6;
   float angle = PI+HALF_PI;  // Angle in radians
-  float turnSpeed = 0.05;  // Adjusted turn speed for better control
+  float turnSpeed = 0.07;  // Adjusted turn speed for better control
   char motion;
   int arrowKeys;
   boolean playerOne;
@@ -14,7 +14,7 @@ class Player {
   PImage img;
   //the trail attributes
   ArrayList<Segment> body;
-  int len = 15;
+  int len = 20;
   float r = 18; //distance between each trail segment
 
   public Player(float x, float y, boolean playerOne) {

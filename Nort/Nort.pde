@@ -5,8 +5,6 @@ float arenaY;
 float arenaW;
 float arenaH;
 
-float rotateRight = 0.01;
-float rotateLeft = -0.01;
 int round = 0;
 int enemyCount;
 int allyCount;
@@ -21,7 +19,7 @@ float healthMenuY;
 float healthMenuX;
 
 void setup(){
-  size(1080, 1080);
+  fullScreen();
   background(0);
   frameRate(60);
   arenaX = width/8;
@@ -88,6 +86,10 @@ void draw(){
     }
   // Main Game Play
   } else {
+    float elapsedTime = (millis() - startTime) / 1000;
+    if (elapsedTime > 15){
+      startSuddenDeath(elapsedTime);
+    }
     stroke(255);
     noFill();
     rectMode(CORNER);
@@ -116,11 +118,21 @@ void draw(){
   }
 }
 
+void startSuddenDeath(float elapsedTime){
+  if (elapsedTime < 22){
+    arenaX +=1;
+    arenaW -=2;
+  }
+}
 
 void resetRound(){
   roundStarted = false;
   startTime = millis();
   p1.playerReset();
   p2.playerReset();
+  arenaX = width/8;
+  arenaY = height/8-100;
+  arenaW = width/8*6;
+  arenaH = height/8*6-100;
 }
 
