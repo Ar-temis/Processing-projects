@@ -19,7 +19,7 @@ void setup(){
   img = loadImage(path); // Image size 725x1080
   // Have to use a Mono font
   font = createFont("HackNerdFontMono-Regular.ttf", 12);
-  textSize(4);
+  textSize(6);
 }
 
 void draw(){
