@@ -1,6 +1,5 @@
 class Player {
-  float x;
-  float y;
+  float x, y;
   float front = 30;
   float side = 56;
   int health = 5;
@@ -63,30 +62,8 @@ class Player {
     x += speed * cos(angle);
     y += speed * sin(angle);
     
-    checkBoundaries();
     update();
     drawTrail();
-    checkTouchOwn();
-    // Handle input
-    if (playerOne){
-      switch(motion){
-        case 'a':
-          angle -= turnSpeed;  // Turn left (counterclockwise)
-          break;
-        case 'd':
-          angle += turnSpeed;  // Turn left (counterclockwise)
-          break;
-     }
-    } else {
-      switch(arrowKeys){
-        case LEFT:
-          angle -= turnSpeed;  // Turn left (counterclockwise)
-          break;
-        case RIGHT:
-          angle += turnSpeed;  // Turn left (counterclockwise)
-          break;
-      }
-    }
   }
 
   void checkBoundaries() {
@@ -174,8 +151,6 @@ class Player {
       x = arenaX + arenaW - 60;
       y = height/2;
     }
-    motion = 'w';
-    arrowKeys = UP;
     angle = HALF_PI + PI;
     body = new ArrayList<Segment>();
     for(int i=0; i<len; i++){
